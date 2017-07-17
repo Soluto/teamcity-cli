@@ -2,15 +2,6 @@ const argv = require("minimist")(process.argv.slice(2));
 const teamcity = require("teamcity-rest-api");
 const moment = require("moment");
 
-/* Configuration
-    username - teamcity credential
-    password - teamcity credential
-    serverUrl - teamcity's server url (e.g http://some-host:8888)
-    buildTypeToTrigger - the build name (e.g 'Collect Result')
-    projectId - the project id of the build to trigger
-    delayInHours - number of hours to schedule the build trigger from now
-    overrideTriggers - true / false, if true then all existing triggers will be deleted. default false
-*/
 const username = argv.username;
 const password = argv.password;
 const serverUrl = argv.serverUrl;
@@ -35,7 +26,7 @@ const client = teamcity.create({ username, password, url: serverUrl });
     return client.buildConfigurations.setTriggers({ id: buildType.id }, newBuildTriggers)
 }())
 
-const getDelayedMoment = hoursToDelay => moment().add(hoursToDelay, 'minutes');
+const getDelayedMoment = hoursToDelay => moment().add(hoursToDelay, 'hours');
 
 const createConfigurationBuildTriggers = (currentBuildTriggers, newTrigger, isOverride) => {
     if (isOverride) {
