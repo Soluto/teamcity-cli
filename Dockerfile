@@ -1,5 +1,7 @@
 FROM node:7.10.1-alpine
-COPY . /src
-WORKDIR /src
+COPY package.json /app/
+COPY ./src /app/src
+WORKDIR /app
 RUN npm install
+
 ENTRYPOINT ["npm", "run"]
