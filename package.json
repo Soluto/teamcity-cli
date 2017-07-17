@@ -1,0 +1,18 @@
+{
+  "name": "teamcity-scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "scheduleBuild": "node src/scripts/scheduleBuild",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "moment": "^2.18.1",
+    "teamcity-rest-api": "0.0.8"
+  }
+}
