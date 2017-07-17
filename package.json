@@ -1,5 +1,5 @@
 {
-  "name": "teamcity-scheduler",
+  "name": "teamcity-cli",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
