@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "printArgs": "node src/scripts/printArgs",
     "scheduleBuild": "node src/scripts/scheduleBuild",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
