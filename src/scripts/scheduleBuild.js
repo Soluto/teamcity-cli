@@ -20,6 +20,7 @@ const client = teamcity.create({ username, password, url: serverUrl });
     const buildTriggers = buildConfiguration.triggers;
 
     const delayedMoment = getDelayedMoment(delayInHours);
+
     const newTrigger = createSchedulingTrigger(delayedMoment);
     const newBuildTriggers = createConfigurationBuildTriggers(buildTriggers, newTrigger, overrideTriggers);
 
@@ -47,7 +48,11 @@ const createConfigurationBuildTriggers = (currentBuildTriggers, newTrigger, isOv
 }
 
 const createSchedulingTrigger = scheduleMoment => {
-    const timeComponents = extractTimeComponents(scheduleMoment);
+
+    // Flag as utc, so when we format we get utc components, and set the cron timezone to utc also
+    const scheduleMomentUtc = scheduleMoment.utc();
+    console.log("Schedule time: ", scheduleMomentUtc.format());
+    const timeComponents = extractTimeComponents(scheduleMomentUtc);
 
     return {
         type: "schedulingTrigger",
@@ -62,7 +67,7 @@ const createSchedulingTrigger = scheduleMoment => {
                 { name: "cronExpression_year", value: timeComponents.year },
                 { name: "promoteWatchedBuild", value: "true" },
                 { name: "schedulingPolicy", value: "cron" },
-                { name: "timezone", value: "SERVER" },
+                { name: "timezone", value: "UTC" },
             ]
         }
     }
