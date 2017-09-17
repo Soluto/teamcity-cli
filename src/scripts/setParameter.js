@@ -11,7 +11,28 @@ const paramValue = argv.paramValue;
 const client = teamcity.create({ username, password, url: serverUrl });
 
 (async function () {
-    const result = await client.projects.setParameters({ id: projectId }, [{
-        name: paramName, value: paramValue 
-    }])
+    try {
+        const project = await client.projects.get(projectId);
+        const parameters = project.parameters.property;
+
+        let foundParam = false;
+        for (var param of parameters) {
+            if (param.name == paramName) {
+                param.value = paramValue;
+                foundParam = true;
+            }
+        }
+
+        if (!foundParam) {
+            parameters.push({
+                name: paramName,
+                value: paramValue
+            })
+        }
+
+        await client.projects.setParameters({ id: projectId }, parameters)
+    } catch (error) {
+        console.error(error);
+        process.exitCode = 2;
+    }
 }())
