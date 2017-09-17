@@ -1,6 +1,17 @@
 const argv = require("minimist")(process.argv.slice(2));
 const teamcity = require("teamcity-rest-api");
 
+(function(){
+    const mandatoryArguments = [
+        'username', 'password', 'serverUrl', 'projectId', 'paramName', 'paramValue'
+    ]
+    
+    const missingArguments = mandatoryArguments.filter(arg => !argv.hasOwnProperty(arg));
+    if (missingArguments.length > 0){
+        throw new Error(`Missing arguments: ${missingArguments.join(', ')}`)
+    }
+}())
+
 const username = argv.username;
 const password = argv.password;
 const serverUrl = argv.serverUrl;
