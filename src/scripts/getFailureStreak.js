@@ -50,7 +50,6 @@ Array.prototype.takeWhile = function(predicate){
                 isFailure: status !== SUCCESS_STATUS
             }))
             .sort((a, b) => b.number - a.number)
-            .filter(build => build.number < 1432)
             .takeWhile(build => build.isFailure)
 
         console.log(` - Failure Streak: ${failureStreak.length}`);
